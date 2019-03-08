@@ -31,7 +31,7 @@ const UNITS = {
 const INFINITY_DISTANCE = 10.0 * 1000 * 1000;
 
 /*
- Use the same millimeter unit to unify all the input parameters.
+  Use the same millimeter unit to unify all the input parameters.
  */
 function unifyInput(input, unit) {
   input.distance = input.distance * UNITS.items[unit].value;
@@ -39,7 +39,7 @@ function unifyInput(input, unit) {
 }
 
 /*
- Unify all the output properties back to passed-in unit.
+  Unify all the output properties back to passed-in unit.
  */
 function unifyOutput(output, unit) {
   debug('Before unifyOutput: %s', JSON.stringify(output));
@@ -49,14 +49,12 @@ function unifyOutput(output, unit) {
   return output;
 }
 
-
-
 /*
- All parameters in 'unifiedInput' are based on millimeter or without unit:
-   coc, focal, aperture, distance.
- The output is a object contains the 7 following numbers:
-   Calculate: hyperFocal, nearLimit, farLimit, totalDepth, frontPercent,
-   hehindPercent, frontDepth, behindDepth.
+  All parameters in 'unifiedInput' are based on millimeter or without unit:
+    coc, focal, aperture, distance.
+  The output is a object contains the 7 following numbers:
+    Calculate: hyperFocal, nearLimit, farLimit, totalDepth, frontPercent,
+    hehindPercent, frontDepth, behindDepth.
  */
 function calculate(unifiedInput) {
   const coc = unifiedInput.coc;
