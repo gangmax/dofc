@@ -1,5 +1,6 @@
 /*
-  https://stackoverflow.com/a/31462773/3115617
+  Unit testing of private functions with mocha and node.js:
+    https://stackoverflow.com/a/31462773/3115617
  */
 
 const assert = require('assert');

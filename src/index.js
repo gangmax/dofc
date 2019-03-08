@@ -1,6 +1,8 @@
 /*
- A Depth of Field calculator written in Node/Javascript.
- https://stackoverflow.com/questions/22097603/unit-testing-of-private-functions-with-mocha-and-node-js
+  A Depth of Field calculator written in Node/Javascript.
+
+  Coding Style Guide for node.js:
+    https://stackoverflow.com/a/5497467/3115617
  */
 "use strict";
 
@@ -12,7 +14,7 @@ const UNITS = {
   INCH: 25.4
 };
 
-// //Set infinity distance as 10km.
+// Define the infinity distance as 10km.
 const INFINITY_DISTANCE = 10.0 * 1000 * 1000;
 
 /*
