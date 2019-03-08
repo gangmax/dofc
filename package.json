@@ -26,6 +26,7 @@
     "rewire": "^4.0.1"
   },
   "dependencies": {
-    "debug": "^4.1.1"
+    "debug": "^4.1.1",
+    "localize": "^0.4.7"
   }
 }

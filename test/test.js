@@ -2,21 +2,22 @@
   Unit testing of private functions with mocha and node.js:
     https://stackoverflow.com/a/31462773/3115617
  */
-"use strict";
+'use strict';
 
-const expect = require("chai").expect;
+const expect = require('chai').expect;
 const rewire = require('rewire');
-const debug = require('debug')('dofc-test')
+const debug = require('debug')('dofc-test');
 
 const dofc = rewire('../src/index');
+const format = require('../src/format').format;
 
-describe("dofc test", function() {
-  it("get UNITS length", function() {
-    let unitsLength = Object.keys(dofc.UNITS).length;
-    expect(unitsLength).to.equal(5);
+describe('dofc test', function() {
+  it('get UNITS length', function() {
+    const unitsLength = Object.keys(dofc.UNITS).length;
+    expect(unitsLength).to.equal(6);
   });
 
-  it("test unifyInput", function() {
+  it('test unifyInput', function() {
     const unifyInput = dofc.__get__('unifyInput');
     const input = {
       coc: 0.1,
@@ -33,7 +34,7 @@ describe("dofc test", function() {
     expect(result.distance).to.equal(10000);
   });
 
-  it("test unifyOutput", function() {
+  it('test unifyOutput', function() {
     const unifyOutput = dofc.__get__('unifyOutput');
     const output = {
       hyperFocal: 1000.0,
@@ -58,9 +59,42 @@ describe("dofc test", function() {
     expect(result.behindDepth).to.equal(0.01);
   });
 
-  it("test calculate DOF, case 1: Normal case", function() {
-    const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM);
+  it('test calculate DOF, case 2: Normal case number result', function() {
+    const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM, 'cn');
     debug(result);
   });
 
+  it('test calculate DOF, case 1: Normal case', function() {
+    const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM, 'en', true);
+    debug(result);
+  });
+
+  it('test calculate DOF, case 2: Normal case for cn', function() {
+    const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM, 'cn', true);
+    debug(result);
+  });
+});
+
+describe('format test', function() {
+  it('test formatting normal number', function() {
+    let result = format(1.2345, dofc.UNITS.METER);
+    debug(result);
+    expect(result).to.equal('1.23meter');
+    result = format(1.2345, dofc.UNITS.METER, 'cn');
+    debug(result);
+    expect(result).to.equal('1.23米');
+    result = format(Math.pow(10, 1000), dofc.UNITS.METER, 'cn');
+    debug(result);
+    expect(result).to.equal('无限远');
+
+  });
+
+  it('test formatting infinity', function() {
+    let result = format(Math.pow(10, 1000), dofc.UNITS.METER, 'cn');
+    debug(result);
+    expect(result).to.equal('无限远');
+    result = format(Math.pow(10, 1000), dofc.UNITS.METER);
+    debug(result);
+    expect(result).to.equal('Infinity');
+  });
 });
