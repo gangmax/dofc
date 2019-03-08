@@ -12,28 +12,22 @@ const UNITS = require('./index').UNITS;
 
 const dofLocalize = new Localize({
     'Infinity': {
-        'en': 'Infinity',
         'cn': '无限远'
     },
-    'mm': {
-        'en': 'mm',
+    ' mm': {
         'cn': '毫米'
     },
-    'cm': {
-        'en': 'cm',
+    ' cm': {
         'cn': '分米'
     },
-    'meter': {
-        'en': 'meter',
+    ' meter': {
         'cn': '米'
     },
-    'feet': {
-        'en': 'feet',
+    ' feet': {
         'cn': '英尺'
     },
-    'inches': {
-        'en': 'inches',
-        'cn': '英寸'
+    ' inches': {
+        'cn': ' 英寸'
     }
 });
 
@@ -53,6 +47,7 @@ function format(value, unit, locale = 'en') {
   } else {
     const valueString = financial(value);
     const unitString = dofLocalize.translate(UNITS.items[unit].code);
+    debug('unitString is: "%s"', unitString);
     result = valueString + unitString;
   }
   return result;

@@ -19,11 +19,11 @@ const UNITS = {
   FEET: '4',
   INCH: '5',
   items : {
-    '1': {name: 'MM', value: 1.0, code: 'mm'},
-    '2': {name: 'CM', value: 10.0, code: 'cm'},
-    '3': {name: 'METER', value: 1000.0, code: 'meter'},
-    '4': {name: 'FEET', value: 304.8, code: 'feet'},
-    '5': {name: 'INCH', value: 25.4, code: 'inches'}
+    '1': {name: 'MM', value: 1.0, code: ' mm'},
+    '2': {name: 'CM', value: 10.0, code: ' cm'},
+    '3': {name: 'METER', value: 1000.0, code: ' meter'},
+    '4': {name: 'FEET', value: 304.8, code: ' feet'},
+    '5': {name: 'INCH', value: 25.4, code: ' inches'}
   }
 };
 
@@ -48,6 +48,8 @@ function unifyOutput(output, unit) {
   debug('After unifyOutput: %s', JSON.stringify(output));
   return output;
 }
+
+
 
 /*
  All parameters in 'unifiedInput' are based on millimeter or without unit:
@@ -118,8 +120,8 @@ function calc(coc, focal, aperture, distance, unit = UNITS.METER,
     result.nearLimit = format.format(result.nearLimit, unit, locale);
     result.farLimit = format.format(result.farLimit, unit, locale);
     result.totalDepth = format.format(result.totalDepth, unit, locale);
-    result.frontPercent = format.formatPercent(result.frontPercent, unit, locale);
-    result.hehindPercent = format.formatPercent(result.hehindPercent, unit, locale);
+    result.frontPercent = format.formatPercent(result.frontPercent);
+    result.hehindPercent = format.formatPercent(result.hehindPercent);
     result.frontDepth = format.format(result.frontDepth, unit, locale);
     result.behindDepth = format.format(result.behindDepth, unit, locale);
   }

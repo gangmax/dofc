@@ -79,7 +79,7 @@ describe('format test', function() {
   it('test formatting normal number', function() {
     let result = format(1.2345, dofc.UNITS.METER);
     debug(result);
-    expect(result).to.equal('1.23meter');
+    expect(result).to.equal('1.23 meter');
     result = format(1.2345, dofc.UNITS.METER, 'cn');
     debug(result);
     expect(result).to.equal('1.23米');
