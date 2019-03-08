@@ -2,16 +2,18 @@
   Unit testing of private functions with mocha and node.js:
     https://stackoverflow.com/a/31462773/3115617
  */
+"use strict";
 
-const assert = require('assert');
 const expect = require("chai").expect;
 const rewire = require('rewire');
+const debug = require('debug')('dofc-test')
+
 const dofc = rewire('../src/index');
 
 describe("dofc test", function() {
   it("get UNITS length", function() {
     let unitsLength = Object.keys(dofc.UNITS).length;
-    expect(unitsLength).to.equal(4);
+    expect(unitsLength).to.equal(5);
   });
 
   it("test unifyInput", function() {
@@ -23,7 +25,7 @@ describe("dofc test", function() {
       distance: 10
     };
     const result = unifyInput(input, dofc.UNITS.METER);
-    console.log(result);
+    debug(result);
     expect(Object.keys(result).length).to.equal(4);
     expect(result.coc).to.equal(0.1);
     expect(result.focal).to.equal(50);
@@ -44,7 +46,7 @@ describe("dofc test", function() {
       behindDepth: 10.0
     };
     const result = unifyOutput(output, dofc.UNITS.METER);
-    console.log(result);
+    debug(result);
     expect(Object.keys(result).length).to.equal(8);
     expect(result.hyperFocal).to.equal(1);
     expect(result.nearLimit).to.equal(0.1);
@@ -55,4 +57,10 @@ describe("dofc test", function() {
     expect(result.frontDepth).to.equal(0.005);
     expect(result.behindDepth).to.equal(0.01);
   });
+
+  it("test calculate DOF, case 1: Normal case", function() {
+    const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM);
+    debug(result);
+  });
+
 });

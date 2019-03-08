@@ -6,8 +6,11 @@
  */
 "use strict";
 
+const debug = require('debug')('dofc')
+
 // All units based on millimeter.
 const UNITS = {
+  MM: 1.0,
   CM: 10.0,
   METER: 1000.0,
   FEET: 304.8,
@@ -29,7 +32,9 @@ function unifyInput(input, unit) {
  Unify all the output properties back to passed-in unit.
  */
 function unifyOutput(output, unit) {
+  debug('Before unifyOutput: %s', JSON.stringify(output));
   Object.keys(output).forEach(key => output[key] = output[key] / unit);
+  debug('After unifyOutput: %s', JSON.stringify(output));
   return output;
 }
 
@@ -48,6 +53,7 @@ function calculate(unifiedInput) {
   // Calculate: hyperFocal, nearLimit, farLimit, totalDepth, frontPercent,
   // hehindPercent, frontDepth, behindDepth.
   const hyperFocal = (focal * focal) / (aperture * coc) + focal;
+  debug('hyperFocal = %s', hyperFocal)
   const nearLimit = ((hyperFocal - focal) * distance) / 
     (hyperFocal + distance - (2 * focal));
   //Prevent 'divide by zero' when calculating far distance.
@@ -72,7 +78,7 @@ function calculate(unifiedInput) {
     frontDepth = distance - nearLimit;
     behindDepth = Infinity;
   }
-  return {
+  const result = {
     hyperFocal,
     nearLimit,
     farLimit,
@@ -81,17 +87,22 @@ function calculate(unifiedInput) {
     hehindPercent,
     frontDepth,
     behindDepth
-  }
+  };
+  debug('result = %s', JSON.stringify(result));
+  return result;
 }
 
 function calc(coc, focal, aperture, distance, unit = UNITS.METER) {
-  let unifiedInput = unifyInput({
+  const unifiedInput = unifyInput({
       coc: coc,
       focal: focal,
       aperture: aperture,
       distance: distance
   }, unit);
-  return unifyOutput(calculate(unifiedInput));
+
+  debug('unifiedInput: %s', JSON.stringify(unifiedInput));
+
+  return unifyOutput(calculate(unifiedInput), unit);
 }
 
 module.exports = {
