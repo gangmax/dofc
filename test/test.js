@@ -59,17 +59,17 @@ describe('dofc test', function() {
     expect(result.behindDepth).to.equal(0.01);
   });
 
-  it('test calculate DOF, case 2: Normal case number result', function() {
+  it('test calculate DOF, case 1: Normal case number result', function() {
     const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM, 'cn');
     debug(result);
   });
 
-  it('test calculate DOF, case 1: Normal case', function() {
+  it('test calculate DOF, case 2: Normal case', function() {
     const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM, 'en', true);
     debug(result);
   });
 
-  it('test calculate DOF, case 2: Normal case for cn', function() {
+  it('test calculate DOF, case 3: Normal case for cn', function() {
     const result = dofc.calc(0.020, 50, 1.414214, 1500, dofc.UNITS.MM, 'cn', true);
     debug(result);
   });
