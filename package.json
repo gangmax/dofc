@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/gangmax/dofc#readme",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^8.2.1",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
     "rewire": "^5.0.0"
   },
   "dependencies": {
